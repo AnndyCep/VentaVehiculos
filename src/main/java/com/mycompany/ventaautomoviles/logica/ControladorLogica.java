@@ -2,12 +2,19 @@
 package com.mycompany.ventaautomoviles.logica;
 
 import com.mycompany.ventaautomoviles.persistencia.ControladorPersistencia;
+import java.util.List;
 
 
 public class ControladorLogica {
-    
-    
     ControladorPersistencia controlPersis = new ControladorPersistencia();
+    
+    
+    public List<Atomovil> traerVehiculos() {
+        return controlPersis.mostrarVehiculos();
+    }
+    
+    
+    
 
     public void guardar(String modelo, String marca, String motor, String color, String placa, String can_puertas) {
         

@@ -42,6 +42,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         btnVerDatos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnVerDatos.setText("Ver Autos");
+        btnVerDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerDatosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -120,6 +125,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pantalla.setVisible(true);
         pantalla.setLocationRelativeTo(null);
     }//GEN-LAST:event_btnIngresarDatosActionPerformed
+
+    private void btnVerDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDatosActionPerformed
+        
+        //Mostrar la ventana mostrar datos
+        MostrarDatos pantalla = new MostrarDatos();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
+        
+    }//GEN-LAST:event_btnVerDatosActionPerformed
 
    
 
