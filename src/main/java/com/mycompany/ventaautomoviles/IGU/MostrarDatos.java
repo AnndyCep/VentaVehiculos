@@ -29,6 +29,7 @@ public class MostrarDatos extends javax.swing.JFrame {
         tblVehiculos = new javax.swing.JTable();
         btnEditarDatos = new javax.swing.JButton();
         btnBorrarDatos = new javax.swing.JButton();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -73,6 +74,11 @@ public class MostrarDatos extends javax.swing.JFrame {
         );
 
         btnEditarDatos.setIcon(new javax.swing.ImageIcon("C:\\Users\\hanns\\Downloads\\editar (1).png")); // NOI18N
+        btnEditarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarDatosActionPerformed(evt);
+            }
+        });
 
         btnBorrarDatos.setIcon(new javax.swing.ImageIcon("C:\\Users\\hanns\\Downloads\\boton-eliminar.png")); // NOI18N
         btnBorrarDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -81,17 +87,26 @@ public class MostrarDatos extends javax.swing.JFrame {
             }
         });
 
+        btnVolver.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(46, 46, 46)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(229, 229, 229)
+                        .addComponent(btnVolver)
+                        .addGap(108, 108, 108)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,8 +117,14 @@ public class MostrarDatos extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(jLabel1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnVolver)
+                        .addGap(11, 11, 11)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -158,6 +179,26 @@ public class MostrarDatos extends javax.swing.JFrame {
         cargarTabla(); //se actualiza la tabla
     }//GEN-LAST:event_btnBorrarDatosActionPerformed
 
+    private void btnEditarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarDatosActionPerformed
+        //Validar si hay elementos en la tabla
+        if (tblVehiculos.getRowCount() > 0) {
+            //Validar si seleciono una fila
+            if (tblVehiculos.getSelectedRow() != -1) {
+                //tomamos el Id de la tabla, para que cargen los datos del vehiculo
+                int valor_id = Integer.parseInt(String.valueOf(tblVehiculos.getValueAt(tblVehiculos.getSelectedRow(),0)));
+                
+                ModificarDatos pantalla = new ModificarDatos(valor_id);
+                pantalla.setVisible(true);
+                pantalla.setLocationRelativeTo(null);
+                this.dispose(); //Cerramos la pagina actual
+            }
+        }
+    }//GEN-LAST:event_btnEditarDatosActionPerformed
+
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
     private void mostrarMensaje(String mensaje,String tipo, String encabezado){
         JOptionPane option = new JOptionPane(mensaje);
         if (tipo.equalsIgnoreCase("Info")) {
@@ -175,6 +216,7 @@ public class MostrarDatos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrarDatos;
     private javax.swing.JButton btnEditarDatos;
+    private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

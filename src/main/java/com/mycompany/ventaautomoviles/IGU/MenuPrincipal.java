@@ -39,6 +39,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         btnSalir.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         btnVerDatos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnVerDatos.setText("Ver Autos");
@@ -134,6 +139,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         pantalla.setLocationRelativeTo(null);
         
     }//GEN-LAST:event_btnVerDatosActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnSalirActionPerformed
 
    
 

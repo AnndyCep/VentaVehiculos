@@ -29,6 +29,18 @@ public class ControladorPersistencia {
             Logger.getLogger(ControladorPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public Atomovil traerVehiculo(int valor_id) {
+        return autoJpa.findAtomovil(valor_id);
+    }
+
+    public void actualizarVehiculo(Atomovil auto) {
+        try {
+            autoJpa.edit(auto);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladorPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
     
 }

@@ -1,18 +1,24 @@
 
 package com.mycompany.ventaautomoviles.IGU;
 
+import com.mycompany.ventaautomoviles.logica.Atomovil;
 import com.mycompany.ventaautomoviles.logica.ControladorLogica;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 
 
-public class IngresarDatos extends javax.swing.JFrame {
+public class ModificarDatos extends javax.swing.JFrame {
 
     ControladorLogica controlLogica = new ControladorLogica();
+    int valor_id;
+    Atomovil auto;
     
-    public IngresarDatos() {
+    public ModificarDatos(int valor_id) {
         initComponents();
+        this.valor_id = valor_id;
+        cargarDatos(valor_id);
+        
     }
 
     
@@ -131,7 +137,7 @@ public class IngresarDatos extends javax.swing.JFrame {
         );
 
         btnLimpiar.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnLimpiar.setText("Nuevo registro");
+        btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
@@ -139,7 +145,7 @@ public class IngresarDatos extends javax.swing.JFrame {
         });
 
         btnGuardar1.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        btnGuardar1.setText("Guardar");
+        btnGuardar1.setText("Guardar Cambios");
         btnGuardar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardar1ActionPerformed(evt);
@@ -176,7 +182,7 @@ public class IngresarDatos extends javax.swing.JFrame {
                                     .addComponent(btnGuardar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,22 +238,19 @@ public class IngresarDatos extends javax.swing.JFrame {
         String placa = txtPlaca.getText();
         String can_puertas = txtCanPuertas.getText();
         
-        controlLogica.guardar(modelo,marca,motor,color,placa,can_puertas);
-        mostrarMensaje("Ingreso de forma correcta los datos", "Successfull");
-        limpiarDatos();
+        controlLogica.actualizarVehiculo(auto,modelo,marca,motor,color,placa,can_puertas);
+        
+        //mostrar mensaje
+        mostrarMensaje("Actualizo los datos de forma correcta", "Successfull");
+        this.dispose(); // cerrar la pagina actual.
+        
+        //Abrimos la pantalla de la tabla, para que actulice los datos.
+        MostrarDatos pantalla = new MostrarDatos();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
         
     }//GEN-LAST:event_btnGuardar1ActionPerformed
 
-    private void limpiarDatos(){
-        //Limpiar datos
-        txtModelo.setText("");
-        txtMarca.setText("");
-        txtMotor.setText("");
-        txtColor.setText("");
-        txtPlaca.setText("");
-        txtCanPuertas.setText("");
-    }
-    
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
@@ -283,4 +286,21 @@ public class IngresarDatos extends javax.swing.JFrame {
     private javax.swing.JTextField txtMotor;
     private javax.swing.JTextField txtPlaca;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarDatos(int valor_id) {
+        
+        //instanciamos el objeto Atomovil ya que traer un objeto
+        auto = controlLogica.traerVehiculo(valor_id);
+        
+        //setiamos cada uno de los valores en textField
+        txtModelo.setText(auto.getModelo());
+        txtMarca.setText(auto.getMarca());
+        txtMotor.setText(auto.getMotor());
+        txtColor.setText(auto.getColor());
+        txtPlaca.setText(auto.getPlaca());
+        txtCanPuertas.setText(auto.getCantidad_puertas());
+        
+        
+        
+    }
 }
