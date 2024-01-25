@@ -31,5 +31,9 @@ public class ControladorLogica {
         controlPersis.guardar(automovil);
         
     }
+
+    public void borrarVehiculo(int valor_id) {
+        controlPersis.borrarVehiclo(valor_id);
+    }
     
 }

@@ -4,6 +4,8 @@ package com.mycompany.ventaautomoviles.IGU;
 import com.mycompany.ventaautomoviles.logica.Atomovil;
 import com.mycompany.ventaautomoviles.logica.ControladorLogica;
 import java.util.List;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -25,8 +27,8 @@ public class MostrarDatos extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVehiculos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnEditarDatos = new javax.swing.JButton();
+        btnBorrarDatos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -36,7 +38,7 @@ public class MostrarDatos extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel1.setText("Mostrar Datos");
+        jLabel1.setText("Datos Vehiculos");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -70,9 +72,14 @@ public class MostrarDatos extends javax.swing.JFrame {
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\hanns\\Downloads\\editar (1).png")); // NOI18N
+        btnEditarDatos.setIcon(new javax.swing.ImageIcon("C:\\Users\\hanns\\Downloads\\editar (1).png")); // NOI18N
 
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\hanns\\Downloads\\boton-eliminar.png")); // NOI18N
+        btnBorrarDatos.setIcon(new javax.swing.ImageIcon("C:\\Users\\hanns\\Downloads\\boton-eliminar.png")); // NOI18N
+        btnBorrarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarDatosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,8 +95,8 @@ public class MostrarDatos extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnBorrarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEditarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -103,9 +110,9 @@ public class MostrarDatos extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(65, 65, 65)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBorrarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEditarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
@@ -130,11 +137,44 @@ public class MostrarDatos extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formWindowOpened
 
+    private void btnBorrarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarDatosActionPerformed
+        
+        //Confirmar que la tabla tenga datos
+        if (tblVehiculos.getRowCount() > 0) { //obtiene la cantidad de filas
+            //Confirmanos que haya seleccopmado alguna fila
+            if (tblVehiculos.getSelectedRow() != -1) {
+                // Seleccionado el id de la fila, esta en la posicion 0
+                int valor_id = Integer.parseInt(String.valueOf(tblVehiculos.getValueAt(tblVehiculos.getSelectedRow(),0)));
+                
+                controlLogica.borrarVehiculo(valor_id);
+                
+                mostrarMensaje("Elemento eliminado", "Info", " Eliminacion correcta");
+            } else {
+                mostrarMensaje(" Error al realizar la eliminacion, no se selecciono fila", "Error", "Erro Eliminar");
+            }
+        } else {
+            mostrarMensaje("Error no hay filas para eliminar", "Error", "Error al eliminar");
+        }
+        cargarTabla(); //se actualiza la tabla
+    }//GEN-LAST:event_btnBorrarDatosActionPerformed
+
+    private void mostrarMensaje(String mensaje,String tipo, String encabezado){
+        JOptionPane option = new JOptionPane(mensaje);
+        if (tipo.equalsIgnoreCase("Info")) {
+            option.setMessageType(JOptionPane.INFORMATION_MESSAGE);
+        } else if (tipo.equalsIgnoreCase("Error")) {
+            option.setMessageType(JOptionPane.ERROR_MESSAGE);
+        }
+        JDialog dialog = option.createDialog(encabezado);
+        dialog.setAlwaysOnTop(true);
+        dialog.setVisible(true);
+        
+    }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnBorrarDatos;
+    private javax.swing.JButton btnEditarDatos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
